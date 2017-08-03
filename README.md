@@ -22,7 +22,7 @@ if (tsse(hash, givenHash)) {
 } else {
   console.log('bad hash');
 }
-//=> false
+//=> bad hash
 ```
 
 ## API
