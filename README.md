@@ -1,5 +1,6 @@
 # tsse
 [![Travis CI](https://travis-ci.org/simonepri/tsse.svg?branch=master)](https://travis-ci.org/simonepri/tsse) [![Codecov](https://img.shields.io/codecov/c/github/simonepri/tsse/master.svg)](https://codecov.io/gh/simonepri/tsse) [![npm](https://img.shields.io/npm/dm/tsse.svg)](https://www.npmjs.com/package/tsse) [![npm version](https://img.shields.io/npm/v/tsse.svg)](https://www.npmjs.com/package/tsse) [![npm dependencies](https://david-dm.org/simonepri/tsse.svg)](https://david-dm.org/simonepri/tsse) [![npm dev dependencies](https://david-dm.org/simonepri/tsse/dev-status.svg)](https://david-dm.org/simonepri/tsse#info=devDependencies)
+
 > ⏱ Timing safe string equals.
 
 ## Install
