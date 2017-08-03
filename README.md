@@ -3,6 +3,8 @@
 
 > ⏱ Timing safe string equals.
 
+String comparison algorithm to prevent Node.js timing attacks.
+
 ## Install
 
 ```
