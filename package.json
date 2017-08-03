@@ -1,0 +1,50 @@
+{
+  "name": "tsse",
+  "version": "0.1.0",
+  "description": "Timing safe string equals",
+  "main": "index.js",
+  "dependencies": {
+    "safe-buffer": "^5.1.1"
+  },
+  "devDependencies": {
+    "ava": "*",
+    "benchmark": "^2.1.4",
+    "codecov": "^2.2.0",
+    "nyc": "^11.0.3",
+    "xo": "*"
+  },
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "test": "xo && ava",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage/coverage.lcov && codecov"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonepri/tsse.git"
+  },
+  "author": {
+    "name": "Simone Primarosa",
+    "email": "simone.pri@hotmail.it"
+  },
+  "keywords": [
+    "tsse",
+    "tsscmp",
+    "scmp",
+    "safe",
+    "timing",
+    "string",
+    "comparison",
+    "constant time",
+    "equals"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/simonepri/tsse/issues"
+  },
+  "homepage": "https://github.com/simonepri/tsse#readme",
+  "xo": {
+    "space": true
+  }
+}
