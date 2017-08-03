@@ -31,8 +31,7 @@ if (tsse(hash, givenHash)) {
 
 ### tsse(strA, strB)
 
-Does a constant-time String comparison using crypto native timingSafeEqual if
-available or the Brad Hill's Double HMAC pattern if not.
+Does a constant-time String comparison using the Brad Hill's Double HMAC pattern.
 
 #### strA
 
