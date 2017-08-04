@@ -3,10 +3,8 @@
 const crypto = require('crypto');
 const Buffer = require('safe-buffer').Buffer;
 
-const HMAC_ALGORITHM = 'sha256';
-const HMAC_KEY_LENGTH = 32;
-
 /**
+ * Buffer constant-time String comparison for buffer of the same length.
  * @param  {buffer} a
  * @param  {buffer} b
  * @return {boolean}
@@ -21,8 +19,7 @@ function timingSafeEqual(a, b) {
 }
 
 /**
- * Does a constant-time String comparison using the Brad Hill's Double HMAC
- * pattern.
+ * Does a constant-time String comparison.
  *
  * @param  {string} a The first string.
  * @param  {string} b The second string.
@@ -33,17 +30,14 @@ function timingSafeStringEqual(sa, sb) {
   const ba = Buffer.from(sa);
   const bb = Buffer.from(sb);
 
-  const key = crypto.randomBytes(HMAC_KEY_LENGTH);
-  const ha = new crypto.Hmac(HMAC_ALGORITHM, key).update(ba).digest();
-  const hb = new crypto.Hmac(HMAC_ALGORITHM, key).update(bb).digest();
+  let equal = (ba.length === bb.length);
 
-  // The second test, for ba.equals(bb), is just in case of the vanishingly small
-  // chance of a collision. It only fires if the digest comparison passes and so
-  // doesn't leak timing information.
   if (crypto.timingSafeEqual) {
-    return crypto.timingSafeEqual(ha, hb) && ba.equals(bb);
+    equal &= crypto.timingSafeEqual(ba, bb);
+  } else {
+    equal &= timingSafeEqual(ba, bb);
   }
-  return timingSafeEqual(ha, hb) && ba.equals(bb);
+  return equal;
 }
 
 module.exports = timingSafeStringEqual;
