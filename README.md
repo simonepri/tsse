@@ -33,7 +33,8 @@ if (tsse(hash, givenHash)) {
 
 ### tsse(strA, strB)
 
-Does a constant-time String comparison using the Brad Hill's Double HMAC pattern.
+Does a timing sage string comparison using the native crypto.timingSafeEqual
+function if available or a js implemented version otherwise.
 
 #### strA
 
