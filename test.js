@@ -20,4 +20,5 @@ test.serial('should return false for strings with differents length', t => {
   const givenHash = '393eb74047bb90c8d80dea54218430ee';
 
   t.is(m(hash, givenHash), false);
+  t.is(m(givenHash, hash), false);
 });
