@@ -107,12 +107,12 @@ function run() {
   let b;
   let t;
   let ct;
-  console.log(['% simi', 'avg tsse', 'avg ===', 'md tsse ', 'md ==='].join('\t\t'));
+  console.log(['% simi', 'avg tsse', 'avg ===', 'md tsse ', 'md ==='].join('\t'));
   for (let similarity = 0; similarity <= 100; similarity += 2) {
     b = getSimiliarString(a, similarity / 100);
     t = stat(() => compare(a, b, 1e5), 100);
     ct = stat(() => constantCompare(a, b, 1e3), 100);
-    console.log([similarity, ct.avg.toFixed(3), t.avg.toFixed(3), ct.median.toFixed(3), t.median.toFixed(3)].join('\t\t'));
+    console.log([similarity, ct.avg.toFixed(3), t.avg.toFixed(3), ct.median.toFixed(3), t.median.toFixed(3)].join('\t'));
   }
 }
 
