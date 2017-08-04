@@ -27,17 +27,29 @@ function timingSafeEqual(a, b) {
  */
 
 function timingSafeStringEqual(sa, sb) {
-  const ba = Buffer.from(sa);
-  const bb = Buffer.from(sb);
+  let ba = Buffer.from(sa);
+  let bb = Buffer.from(sb);
 
-  let equal = (ba.length === bb.length);
+  // If strings are of different length simply compare the longest with its
+  // self and then return false.
+  let equal;
+  if (ba.length === bb.length) {
+    equal = 1;
+  } else {
+    if (ba.length > bb.length) {
+      bb = ba;
+    } else {
+      ba = bb;
+    }
+    equal = 0;
+  }
 
   if (crypto.timingSafeEqual) {
     equal &= crypto.timingSafeEqual(ba, bb);
   } else {
     equal &= timingSafeEqual(ba, bb);
   }
-  return equal;
+  return equal === 1;
 }
 
 module.exports = timingSafeStringEqual;
