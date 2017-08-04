@@ -5,6 +5,8 @@
 
 String comparison algorithm to prevent Node.js timing attacks.
 
+![image](https://user-images.githubusercontent.com/3505087/28974043-59032a8c-7935-11e7-82a1-5e7335eccfe4.png)
+
 ## Install
 
 ```
