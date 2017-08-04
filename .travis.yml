@@ -6,8 +6,9 @@ node_js:
   - '6'
   - '5'
   - '4'
-after_success: npm run bench
-after_success: npm run coverage
+after_success:
+  - npm run bench
+  - npm run coverage
 cache:
   directories:
   - node_modules
