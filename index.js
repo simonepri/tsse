@@ -5,6 +5,7 @@ const Buffer = require('safe-buffer').Buffer;
 
 /**
  * Buffer constant-time String comparison for buffer of the same length.
+ * @private
  * @param  {buffer} a
  * @param  {buffer} b
  * @return {boolean}
@@ -20,15 +21,15 @@ function timingSafeEqual(a, b) {
 
 /**
  * Does a constant-time String comparison.
- *
- * @param  {string} a The first string.
- * @param  {string} b The second string.
+ * @public
+ * @param  {string|Buffer} a The first string.
+ * @param  {string|Buffer} b The second string.
  * @return {boolean} true if equals, false otherwise.
  */
 
-function timingSafeStringEqual(sa, sb) {
-  let ba = Buffer.from(sa);
-  let bb = Buffer.from(sb);
+function tsse(sa, sb) {
+  let ba = sa instanceof Buffer ? sa : Buffer.from(sa);
+  let bb = sb instanceof Buffer ? sb : Buffer.from(sb);
 
   // If strings are of different length simply compare the longest with its
   // self and then return false.
@@ -52,4 +53,4 @@ function timingSafeStringEqual(sa, sb) {
   return equal === 1;
 }
 
-module.exports = timingSafeStringEqual;
+module.exports = tsse;

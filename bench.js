@@ -12,7 +12,10 @@ const se = (a, b) => a === b;
  * @returns {string}
  */
 function getRandomString(length) {
-  return crypto.pseudoRandomBytes(Math.ceil(3 * length / 4)).toString('base64').substr(0, length);
+  return crypto
+    .pseudoRandomBytes(Math.ceil(3 * length / 4))
+    .toString('base64')
+    .substr(0, length);
 }
 
 /**
@@ -90,12 +93,12 @@ function stat(fn, n) {
   times.sort((a, b) => a - b);
   let median = times[Math.floor(times.length / 2)];
   if (times.length % 2 === 0) {
-    median = (median + times[(times.length / 2) - 1]) / 2;
+    median = (median + times[times.length / 2 - 1]) / 2;
   }
 
   return {
     avg,
-    median
+    median,
   };
 }
 
@@ -107,12 +110,22 @@ function run() {
   let b;
   let t;
   let ct;
-  console.log(['% simi', 'avg tsse', 'avg ===', 'md tsse ', 'md ==='].join('\t'));
+  console.log(
+    ['% simi', 'avg tsse', 'avg ===', 'md tsse ', 'md ==='].join('\t')
+  );
   for (let similarity = 0; similarity <= 100; similarity += 2) {
     b = getSimiliarString(a, similarity / 100);
     t = stat(() => compare(a, b, 1e5), 100);
     ct = stat(() => constantCompare(a, b, 1e3), 100);
-    console.log([similarity, ct.avg.toFixed(3), t.avg.toFixed(3), ct.median.toFixed(3), t.median.toFixed(3)].join('\t'));
+    console.log(
+      [
+        similarity,
+        ct.avg.toFixed(3),
+        t.avg.toFixed(3),
+        ct.median.toFixed(3),
+        t.median.toFixed(3),
+      ].join('\t')
+    );
   }
 }
 

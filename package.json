@@ -1,52 +1,69 @@
 {
-  "name": "tsse",
   "version": "1.1.4",
+  "name": "tsse",
   "description": "Timing safe string equals",
+  "license": "MIT",
+  "homepage": "https://github.com/simonepri/tsse#readme",
+  "repository": "github:simonepri/tsse",
+  "bugs": {
+    "url": "https://github.com/simonepri/tsse/issues",
+    "email": "simonepri@outlook.com"
+  },
+  "author": "Simone Primarosa <simonepri@outlook.com> (https://simoneprimarosa.com)",
+  "contributors": [
+    "Simone Primarosa <simonepri@outlook.com> (https://simoneprimarosa.com)"
+  ],
+  "keywords": [
+    "tse",
+    "tsse",
+    "tsscmp",
+    "scmp",
+    "cmp",
+    "safe",
+    "timing",
+    "string",
+    "comparison",
+    "constant time",
+    "equals",
+    "equal",
+    "compare"
+  ],
   "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "bench": "node bench.js",
+    "test": "xo &&nyc ava",
+    "release": "np",
+    "update": "npm-check -u"
+  },
   "dependencies": {
     "safe-buffer": "^5.1.1"
   },
   "devDependencies": {
     "ava": "*",
     "benchmark": "^2.1.4",
-    "codecov": "^2.2.0",
-    "nyc": "^11.0.3",
+    "np": "*",
+    "npm-check": "*",
+    "nyc": "*",
     "present": "^1.0.0",
     "xo": "*"
   },
-  "engines": {
-    "node": ">=4"
+  "ava": {
+    "verbose": true
   },
-  "scripts": {
-    "test": "xo && ava",
-    "bench": "node benchmark.js",
-    "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage/coverage.lcov && codecov"
+  "nyc": {
+    "reporter": [
+      "lcovonly",
+      "text"
+    ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/simonepri/tsse.git"
-  },
-  "author": {
-    "name": "Simone Primarosa",
-    "email": "simone.pri@hotmail.it"
-  },
-  "keywords": [
-    "tsse",
-    "tsscmp",
-    "scmp",
-    "safe",
-    "timing",
-    "string",
-    "comparison",
-    "constant time",
-    "equals"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/simonepri/tsse/issues"
-  },
-  "homepage": "https://github.com/simonepri/tsse#readme",
   "xo": {
+    "prettier": true,
     "space": true
   }
 }

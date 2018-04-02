@@ -31,22 +31,19 @@ if (tsse(hash, givenHash)) {
 
 ## API
 
-### tsse(strA, strB)
+<a name="tsse"></a>
 
-Does a timing sage string comparison using the native crypto.timingSafeEqual
-function if available or a js implemented version otherwise.
+## tsse(a, b) ⇒ <code>boolean</code>
+Does a constant-time String comparison.
 
-#### strA
+**Kind**: global function  
+**Returns**: <code>boolean</code> - true if equals, false otherwise.  
+**Access**: public  
 
-Type: `string`
-
-The first string.
-
-#### strB
-
-Type: `string`
-
-The second string.
+| Param | Type | Description |
+| --- | --- | --- |
+| a | <code>string</code> \| <code>Buffer</code> | The first string. |
+| b | <code>string</code> \| <code>Buffer</code> | The second string. |
 
 ## Authors
 * **Simone Primarosa** - [simonepri](https://github.com/simonepri)
