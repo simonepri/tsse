@@ -2,13 +2,21 @@ sudo: false
 language: node_js
 node_js:
   - '8'
-  - '7'
   - '6'
-  - '5'
   - '4'
-after_success:
-  - npm run bench
-  - npm run coverage
+os:
+  - linux
+  - osx
 cache:
   directories:
   - node_modules
+install:
+  - npm i -g npx
+  - npm install
+script:
+  - node --version
+  - npm --version
+  - npx --version
+  - npm test
+after_test:
+  - npx codecov
