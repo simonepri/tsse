@@ -64,6 +64,9 @@
   },
   "xo": {
     "prettier": true,
-    "space": true
+    "space": true,
+    "rules": {
+      "prefer-destructuring": "off"
+    }
   }
 }

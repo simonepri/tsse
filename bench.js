@@ -8,21 +8,23 @@ const tsse = require('.');
 const se = (a, b) => a === b;
 
 /**
- * @param {number} length
- * @returns {string}
+ * @private
+ * @param {number} length The length of the random string
+ * @returns {string} A random string of the given length
  */
 function getRandomString(length) {
   return crypto
-    .pseudoRandomBytes(Math.ceil(3 * length / 4))
+    .pseudoRandomBytes(Math.ceil((3 * length) / 4))
     .toString('base64')
     .substr(0, length);
 }
 
 /**
  * Generate another string that has the same prefix and length as another one.
- * @param {string} base
+ * @private
+ * @param {string} base The base string
  * @param {number} relation A number from 0 (not equal at all) to 1 (equal strings)
- * @param {string}
+ * @returns {string} A string that has the same prefix and length of the one provided
  */
 function getSimiliarString(base, relation) {
   const length = Math.round(base.length * relation);
@@ -32,16 +34,17 @@ function getSimiliarString(base, relation) {
     str = getRandomString(base.length - length);
   } while (str && str[0] === base[length]);
   for (let i = 0; i < length; i++) {
-    r += base[i]; // Substr(...) seems to be optimized
+    r += base[i];
   }
   return r + str;
 }
 
 /**
  * Compute a==b n times.
- * @param {string} a
- * @param {string} b
- * @param {number} n
+ * @private
+ * @param {string} a First string
+ * @param {string} b Second string
+ * @param {number} n The number of iterations
  * @returns {number} The time per comparison (in ns)
  */
 function compare(a, b, n) {
@@ -51,14 +54,15 @@ function compare(a, b, n) {
   while (n2--) {
     se(a, b);
   }
-  return (present() - now) * 1e6 / n;
+  return ((present() - now) * 1e6) / n;
 }
 
 /**
  * Compute a==b n times with a constant algorithm.
- * @param {string} a
- * @param {string} b
- * @param {number} n
+ * @private
+ * @param {string} a First string
+ * @param {string} b Second string
+ * @param {number} n The number of iterations
  * @returns {number} The time per comparison (in ns)
  */
 function constantCompare(a, b, n) {
@@ -68,14 +72,14 @@ function constantCompare(a, b, n) {
   while (n2--) {
     tsse(a, b);
   }
-  return (present() - now) * 1e6 / n;
+  return ((present() - now) * 1e6) / n;
 }
 
 /**
  * Make a statistical experiment on fn
  * @param {function} fn A function that receives nothing and returns a number
  * @param {number} n Number of probes to takes
- * @returns {{avg: number, median: number}}
+ * @returns {{avg: number, median: number}} The stats
  */
 function stat(fn, n) {
   const times = [];
@@ -98,7 +102,7 @@ function stat(fn, n) {
 
   return {
     avg,
-    median,
+    median
   };
 }
 
@@ -123,7 +127,7 @@ function run() {
         ct.avg.toFixed(3),
         t.avg.toFixed(3),
         ct.median.toFixed(3),
-        t.median.toFixed(3),
+        t.median.toFixed(3)
       ].join('\t')
     );
   }

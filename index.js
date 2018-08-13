@@ -6,9 +6,9 @@ const Buffer = require('safe-buffer').Buffer;
 /**
  * Buffer constant-time String comparison for buffer of the same length.
  * @private
- * @param  {buffer} a
- * @param  {buffer} b
- * @return {boolean}
+ * @param  {Buffer} a The first string.
+ * @param  {Buffer} b The second string.
+ * @return {boolean} true if equals, false otherwise.
  */
 function timingSafeEqual(a, b) {
   let c = 0;
