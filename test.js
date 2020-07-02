@@ -1,5 +1,5 @@
-import test from 'ava';
-import m from '.';
+const test = require('ava');
+const m = require('.');
 
 test.serial('should return true for identical strings', t => {
   const hash = '0a4d55a8d778e5022fab701977c5d840bbc486d0';

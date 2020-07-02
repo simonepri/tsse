@@ -16,6 +16,7 @@ function timingSafeEqual(a, b) {
   for (let i = 0; i < len; i++) {
     c |= a[i] ^ b[i];
   }
+
   return c === 0;
 }
 
@@ -42,6 +43,7 @@ function tsse(sa, sb) {
     } else {
       ba = bb;
     }
+
     equal = 0;
   }
 
@@ -50,6 +52,7 @@ function tsse(sa, sb) {
   } else {
     equal &= timingSafeEqual(ba, bb);
   }
+
   return equal === 1;
 }
 
