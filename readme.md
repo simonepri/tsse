@@ -2,14 +2,40 @@
   <b>tsse</b>
 </h1>
 <p align="center">
-  <!-- CI - TravisCI -->
-  <a href="https://travis-ci.com/simonepri/tsse">
-    <img src="https://img.shields.io/travis/com/simonepri/tsse/master.svg?label=MacOS%20%26%20Linux" alt="Mac/Linux Build Status" />
+  <!-- Version - npm -->
+  <a href="https://www.npmjs.com/package/tsse">
+    <img src="https://img.shields.io/npm/v/tsse.svg" alt="Latest version on npm" />
   </a>
-  <!-- CI - AppVeyor -->
-  <a href="https://ci.appveyor.com/project/simonepri/tsse">
-    <img src="https://img.shields.io/appveyor/ci/simonepri/tsse/master.svg?label=Windows" alt="Windows Build status" />
+  <!-- Downloads - npm -->
+  <a href="https://npm-stat.com/charts.html?package=tsse">
+    <img src="https://img.shields.io/npm/dt/tsse.svg" alt="Downloads on npm" />
   </a>
+  <!-- License - MIT -->
+  <a href="https://github.com/simonepri/tsse/tree/master/license">
+    <img src="https://img.shields.io/github/license/simonepri/tsse.svg" alt="Project license" />
+  </a>
+
+  <br/>
+
+  <!-- Lint -->
+  <a href="https://github.com/simonepri/tsse/actions?query=workflow:lint+branch:master">
+    <img src="https://github.com/simonepri/tsse/workflows/lint/badge.svg?branch=master" alt="Lint status" />
+  </a>
+  <!-- Test - macOS -->
+  <a href="https://github.com/simonepri/tsse/actions?query=workflow:test-macos+branch:master">
+    <img src="https://github.com/simonepri/tsse/workflows/test-macos/badge.svg?branch=master" alt="Test macOS status" />
+  </a>
+  <!-- Test - Ubuntu -->
+  <a href="https://github.com/simonepri/tsse/actions?query=workflow:test-ubuntu+branch:master">
+    <img src="https://github.com/simonepri/tsse/workflows/test-ubuntu/badge.svg?branch=master" alt="Test Ubuntu status" />
+  </a>
+  <!-- Test - Windows -->
+  <a href="https://github.com/simonepri/tsse/actions?query=workflow:test-windows+branch:master">
+    <img src="https://github.com/simonepri/tsse/workflows/test-windows/badge.svg?branch=master" alt="Test Windows status" />
+  </a>
+
+  <br/>
+
   <!-- Coverage - Codecov -->
   <a href="https://codecov.io/gh/simonepri/tsse">
     <img src="https://img.shields.io/codecov/c/github/simonepri/tsse/master.svg" alt="Codecov Coverage report" />
@@ -45,17 +71,6 @@
   <a href="https://github.com/sindresorhus/np">
     <img src="https://img.shields.io/badge/released_with-np-6c8784.svg" alt="NP Release System used" />
   </a>
-
-  <br/>
-
-  <!-- Version - npm -->
-  <a href="https://www.npmjs.com/package/@kdf/salt">
-    <img src="https://img.shields.io/npm/v/@kdf/salt.svg" alt="Latest version on npm" />
-  </a>
-  <!-- License - MIT -->
-  <a href="https://github.com/simonepri/tsse/tree/master/license">
-    <img src="https://img.shields.io/github/license/simonepri/tsse.svg" alt="Project license" />
-  </a>
 </p>
 <p align="center">
   ⏱ Constant time string/buffer equals.
@@ -68,9 +83,9 @@
 </p>
 
 ## Synopsis
-[tsse][tsse] is a string comparison algorithm to prevent Node.js timing attacks.
+tsse is a string comparison algorithm to prevent Node.js timing attacks.
 
-![image](https://user-images.githubusercontent.com/3505087/28974043-59032a8c-7935-11e7-82a1-5e7335eccfe4.png)
+![tsse benchmark](https://github.com/simonepri/tsse/raw/master/media/tsse-benchmark.png)
 
 ## Install
 
@@ -123,7 +138,6 @@ This project is licensed under the MIT License - see the [license][license] file
 
 
 <!-- Links -->
-[tsse]: https://github.com/simonepri/tsse/issues/new
 [new issue]: https://github.com/simonepri/tsse/issues/new
 [contributors]: https://github.com/simonepri/tsse/contributors
 
