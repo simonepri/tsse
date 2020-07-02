@@ -14,7 +14,7 @@ const se = (a, b) => a === b;
  */
 function getRandomString(length) {
   return crypto
-    .pseudoRandomBytes(Math.ceil((3 * length) / 4))
+    .pseudoRandomBytes(Math.ceil(3 * length / 4))
     .toString('base64')
     .substr(0, length);
 }
@@ -54,7 +54,7 @@ function compare(a, b, n) {
   while (n2--) {
     se(a, b);
   }
-  return ((present() - now) * 1e6) / n;
+  return (present() - now) * 1e6 / n;
 }
 
 /**
@@ -72,7 +72,7 @@ function constantCompare(a, b, n) {
   while (n2--) {
     tsse(a, b);
   }
-  return ((present() - now) * 1e6) / n;
+  return (present() - now) * 1e6 / n;
 }
 
 /**
@@ -102,7 +102,7 @@ function stat(fn, n) {
 
   return {
     avg,
-    median
+    median,
   };
 }
 
@@ -127,7 +127,7 @@ function run() {
         ct.avg.toFixed(3),
         t.avg.toFixed(3),
         ct.median.toFixed(3),
-        t.median.toFixed(3)
+        t.median.toFixed(3),
       ].join('\t')
     );
   }
