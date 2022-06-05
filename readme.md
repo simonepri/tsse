@@ -78,7 +78,9 @@
 ## Synopsis
 tsse is a string comparison algorithm to prevent Node.js timing attacks.
 
-![tsse benchmark](https://github.com/simonepri/tsse/raw/master/media/tsse-benchmark.png)
+> This differs from `crypto.timingSafeEqual` because it: 
+>  - supports both `strings` and `Buffers`;
+>  - supports inputs of different lengths.
 
 ## Install
 
