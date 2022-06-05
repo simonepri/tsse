@@ -140,4 +140,41 @@ function runPrefixBenchmark() {
   );
 }
 
+function runLengthBenchmark() {
+  const a = getRandomString(1000);
+  const stats = runBenchmark(
+    _ => a,
+    iteration => {
+      const aa = a + a;
+      const length = Math.round(a.length * (iteration * 10) / 100);
+      let bb = '';
+      for (let i = 0; i < length; i++) bb += aa[i];
+      return bb;
+    },
+    21
+  );
+
+  console.log('');
+  console.log(' === String Length Comparison Benchmark === ');
+  console.log('');
+  printTable(
+    [
+      ['length', 'tsse', 'str eq', 'tsse', 'str eq'],
+      ['(%)', '(avg ns)', '(avg ns)', '(md ns)', '(md ns)'],
+      ['---', '--------', '--------', '-------', '-------'],
+    ].concat(
+      stats.map(s => [
+        (s.iteration * 10).toString(),
+        s.tsse.avg.toFixed(3),
+        s.se.avg.toFixed(3),
+        s.tsse.median.toFixed(3),
+        s.se.median.toFixed(3),
+      ])
+    ),
+    8,
+    ' | '
+  );
+}
+
 runPrefixBenchmark();
+runLengthBenchmark();
