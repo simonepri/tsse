@@ -33,9 +33,6 @@
   <a href="https://github.com/simonepri/tsse/actions?query=workflow:test-windows+branch:master">
     <img src="https://github.com/simonepri/tsse/workflows/test-windows/badge.svg?branch=master" alt="Test Windows status" />
   </a>
-
-  <br/>
-
   <!-- Coverage - Codecov -->
   <a href="https://codecov.io/gh/simonepri/tsse">
     <img src="https://img.shields.io/codecov/c/github/simonepri/tsse/master.svg" alt="Codecov Coverage report" />
@@ -43,10 +40,6 @@
   <!-- DM - Snyk -->
   <a href="https://snyk.io/test/github/simonepri/tsse?targetFile=package.json">
     <img src="https://snyk.io/test/github/simonepri/tsse/badge.svg?targetFile=package.json" alt="Known Vulnerabilities" />
-  </a>
-  <!-- DM - David -->
-  <a href="https://david-dm.org/simonepri/tsse">
-    <img src="https://david-dm.org/simonepri/tsse/status.svg" alt="Dependency Status" />
   </a>
 
   <br/>
