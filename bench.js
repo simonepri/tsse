@@ -2,10 +2,9 @@
 
 const crypto = require('crypto');
 const present = require('present');
+const padStart = require('string.prototype.padstart');
 
 const tsse = require('.');
-
-const se = (a, b) => a === b;
 
 /**
  * @private
@@ -14,75 +13,33 @@ const se = (a, b) => a === b;
  */
 function getRandomString(length) {
   return crypto
-    .randomBytes(Math.ceil((3 * length) / 4))
+    .randomBytes(Math.ceil(3 * length / 4))
     .toString('base64')
     .slice(0, length);
 }
 
 /**
- * Generate another string that has the same prefix and length as another one.
+ * Measures the comparison time of fn with a and b as input n times.
  * @private
- * @param {string} base The base string
- * @param {number} relation A number from 0 (not equal at all) to 1 (equal strings)
- * @returns {string} A string that has the same prefix and length of the one provided
- */
-function getSimiliarString(base, relation) {
-  const length = Math.round(base.length * relation);
-  let r = '';
-  let str;
-  do {
-    str = getRandomString(base.length - length);
-  } while (str && str[0] === base[length]);
-
-  for (let i = 0; i < length; i++) {
-    r += base[i];
-  }
-
-  return r + str;
-}
-
-/**
- * Compute a==b n times.
- * @private
+ * @param {function} fn The function to use for comparison
  * @param {string} a First string
  * @param {string} b Second string
  * @param {number} n The number of iterations
  * @returns {number} The time per comparison (in ns)
  */
-function compare(a, b, n) {
+function timedCompare(fn, a, b, n) {
   let n2 = n;
   const now = present();
 
-  while (n2--) {
-    se(a, b);
-  }
+  while (n2--) fn(a, b);
 
-  return ((present() - now) * 1e6) / n;
-}
-
-/**
- * Compute a==b n times with a constant algorithm.
- * @private
- * @param {string} a First string
- * @param {string} b Second string
- * @param {number} n The number of iterations
- * @returns {number} The time per comparison (in ns)
- */
-function constantCompare(a, b, n) {
-  let n2 = n;
-  const now = present();
-
-  while (n2--) {
-    tsse(a, b);
-  }
-
-  return ((present() - now) * 1e6) / n;
+  return (present() - now) * 1e6 / n;
 }
 
 /**
  * Make a statistical experiment on fn
  * @param {function} fn A function that receives nothing and returns a number
- * @param {number} n Number of probes to takes
+ * @param {number} n Number of probes to take
  * @returns {{avg: number, median: number}} The stats
  */
 function stat(fn, n) {
@@ -104,37 +61,83 @@ function stat(fn, n) {
     median = (median + times[times.length / 2 - 1]) / 2;
   }
 
-  return {
-    avg,
-    median
-  };
+  return {avg, median};
+}
+
+/**
+ * Prints a tab separated value table
+ * @param {Array.<string>} rows Columns of each row.
+ * @param {function} printfn The function to use for printing.
+ */
+function printTable(rows, padding, delimiter) {
+  for (const row of rows) {
+    console.log(row.map(c => padStart(c, padding)).join(delimiter));
+  }
 }
 
 /**
  * Runs the benchmark.
+ * @param {function} aGenFn A function that takes the current iteration index
+ * and generates the left string for comparison
+ * @param {function} bGenFn A function that takes the current iteration index
+ * and generates the right string for comparison
+ * @param {number} iterations Number of iterations to run.
+ * @returns {Array.<{iteration: number, avg: number, median: number}>} The stats
  */
-function run() {
-  const a = getRandomString(1000);
-  let b;
-  let t;
-  let ct;
-  console.log(
-    ['% simi', 'avg tsse', 'avg ===', 'md tsse ', 'md ==='].join('\t')
-  );
-  for (let similarity = 0; similarity <= 100; similarity += 2) {
-    b = getSimiliarString(a, similarity / 100);
-    t = stat(() => compare(a, b, 1e5), 100);
-    ct = stat(() => constantCompare(a, b, 1e3), 100);
-    console.log(
-      [
-        similarity,
-        ct.avg.toFixed(3),
-        t.avg.toFixed(3),
-        ct.median.toFixed(3),
-        t.median.toFixed(3)
-      ].join('\t')
-    );
+function runBenchmark(aGenFn, bGenFn, iterations) {
+  const tsseCmp = tsse;
+  const seCmp = (a, b) => a === b;
+
+  const stats = [];
+  for (let i = 0; i < iterations; i++) {
+    const a = aGenFn(i);
+    const b = bGenFn(i);
+    stats.push({
+      iteration: i,
+      se: stat(() => timedCompare(seCmp, a, b, 5000), 250),
+      tsse: stat(() => timedCompare(tsseCmp, a, b, 1000), 250),
+    });
   }
+
+  return stats;
 }
 
-run();
+function runPrefixBenchmark() {
+  const a = getRandomString(1000);
+  const stats = runBenchmark(
+    _ => a,
+    iteration => {
+      const length = Math.round(a.length * (iteration * 5) / 100);
+      let randSuffix;
+      do randSuffix = getRandomString(a.length - length);
+      while (randSuffix && randSuffix[0] === a[length]);
+      let commonPrefix = '';
+      for (let i = 0; i < length; i++) commonPrefix += a[i];
+      return commonPrefix + randSuffix;
+    },
+    21
+  );
+
+  console.log('');
+  console.log(' === Common Prefix Comparison Benchmark === ');
+  console.log('');
+  printTable(
+    [
+      ['prefix', 'tsse', 'str eq', 'tsse', 'str eq'],
+      ['(%)', '(avg ns)', '(avg ns)', '(md ns)', '(md ns)'],
+      ['---', '--------', '--------', '-------', '-------'],
+    ].concat(
+      stats.map(s => [
+        (s.iteration * 5).toString(),
+        s.tsse.avg.toFixed(3),
+        s.se.avg.toFixed(3),
+        s.tsse.median.toFixed(3),
+        s.se.median.toFixed(3),
+      ])
+    ),
+    8,
+    ' | '
+  );
+}
+
+runPrefixBenchmark();
