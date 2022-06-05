@@ -22,35 +22,30 @@ function timingSafeEqual(a, b) {
 
 /**
  * Does a constant-time String comparison.
+ * NOTE: When `hiddenStr` and `inputStr` have different lengths `hiddenStr` is
+ * compared to itself, which makes the comparison non-commutative (time-wise).
  * @public
- * @param  {string|Buffer} a The first string.
- * @param  {string|Buffer} b The second string.
+ * @param  {string|Buffer} hiddenStr A string that you don't want to leak.
+ * @param  {string|Buffer} inputStr Another string.
  * @return {boolean} true if equals, false otherwise.
  */
 
-function tsse(sa, sb) {
-  let ba = sa instanceof Buffer ? sa : Buffer.from(sa);
-  let bb = sb instanceof Buffer ? sb : Buffer.from(sb);
-
-  // If strings are of different length simply compare the longest with its
-  // self and then return false.
-  let equal;
-  if (ba.length === bb.length) {
-    equal = 1;
-  } else {
-    if (ba.length > bb.length) {
-      bb = ba;
-    } else {
-      ba = bb;
-    }
-
-    equal = 0;
+function tsse(hiddenStr, inputStr) {
+  let equal = true;
+  if (hiddenStr.length !== inputStr.length) {
+    // If inputs are of different length we compare `hiddenStr` with itself
+    // and then return false.
+    inputStr = hiddenStr;
+    equal = false;
   }
 
+  const hiddenBuff = Buffer.from(hiddenStr);
+  const inputBuff = Buffer.from(inputStr);
   if (crypto.timingSafeEqual) {
-    equal &= crypto.timingSafeEqual(ba, bb);
+    // Node.js v6.6.0 or higher.
+    equal &= crypto.timingSafeEqual(hiddenBuff, inputBuff);
   } else {
-    equal &= timingSafeEqual(ba, bb);
+    equal &= timingSafeEqual(hiddenBuff, inputBuff);
   }
 
   return equal === 1;

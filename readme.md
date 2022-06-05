@@ -106,8 +106,9 @@ if (tsse(hash, givenHash)) {
 
 <a name="tsse"></a>
 
-### tsse(a, b) ⇒ <code>boolean</code>
-Does a constant-time String comparison.
+### tsse(hiddenStr, inputStr) ⇒ <code>boolean</code>
+Does a constant-time String comparison.  
+NOTE: When `hiddenStr` and `inputStr` have different lengths `hiddenStr` is compared to itself, which makes the comparison non-commutative (time-wise).
 
 **Kind**: global function  
 **Returns**: <code>boolean</code> - true if equals, false otherwise.  
@@ -115,8 +116,8 @@ Does a constant-time String comparison.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| a | <code>string</code> \| <code>Buffer</code> | The first string. |
-| b | <code>string</code> \| <code>Buffer</code> | The second string. |
+| hiddenStr | <code>string</code> \| <code>Buffer</code> | A string that you don't want to leak. |
+| inputStr | <code>string</code> \| <code>Buffer</code> | Another string. |
 
 ## Contributing
 Contributions are REALLY welcome and if you find a security flaw in this code, PLEASE [report it][new issue].
