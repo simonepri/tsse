@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    name: AVA & Codecov
+    name: AVA & Benchmark & Codecov
     strategy:
       fail-fast: false
       matrix:
@@ -31,5 +31,7 @@ jobs:
           npm list --dev --depth=0
       - name: Run tests
         run: npm run test
+      - name: Run benchmark
+        run: npm run bench
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v2
