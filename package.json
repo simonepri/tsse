@@ -47,7 +47,6 @@
   },
   "devDependencies": {
     "ava": "~0.25.0",
-    "benchmark": "^2.1.4",
     "nyc": "^11.6.0",
     "present": "^1.0.0",
     "xo": "~0.20.3"
