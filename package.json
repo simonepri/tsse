@@ -38,6 +38,7 @@
   "scripts": {
     "lint": "xo",
     "test": "nyc ava",
+    "test:windows": "ava",
     "bench": "node bench.js",
     "release": "npx np",
     "update": "npx npm-check -u"
